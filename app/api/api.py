@@ -4,11 +4,11 @@ from sqlmodel import select
 from pydantic import BaseModel
 from datetime import datetime
 
-from app.db.db import get_db, AsyncSessionLocal
-from app.models.models import CurrencyRate
-from app.nats.nats import publish_event
-from app.ws.ws import manager
-from app.tasks.task import fetch_rates
+from db.db import get_db, AsyncSessionLocal
+from models.models import CurrencyRate
+from nats_client.nats import publish_event
+from ws.ws import manager
+from tasks.task import fetch_rates
 
 router = APIRouter()
 

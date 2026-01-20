@@ -6,6 +6,6 @@ class CurrencyRate(SQLModel, table=True):
     __tablename__ = "currency_rates"
 
     id: int | None = Field(default=None, primary_key=True)
-    code: str  # USD, EUR, JPY
+    code: str
     value: float
     updated_at: datetime = Field(default_factory=datetime.utcnow)

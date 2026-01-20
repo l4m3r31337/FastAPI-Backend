@@ -5,9 +5,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import select
 from datetime import datetime
 
-from app.db.db import AsyncSessionLocal
-from app.models.models import CurrencyRate
-from app.ws.ws import manager
+from db.db import AsyncSessionLocal
+from models.models import CurrencyRate
+from ws.ws import manager
 
 logger = logging.getLogger("nats-handler")
 

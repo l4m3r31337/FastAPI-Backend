@@ -25,9 +25,6 @@ manager = ConnectionManager()
 
 
 async def websocket_endpoint(websocket: WebSocket):
-    """
-    WebSocket endpoint: /ws/items
-    """
     await manager.connect(websocket)
     try:
         while True:

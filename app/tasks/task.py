@@ -4,10 +4,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import select
 from datetime import datetime
 
-from app.models.models import CurrencyRate
-from app.config import settings
-from app.nats.nats import publish_event
-from app.ws.ws import manager
+from models.models import CurrencyRate
+from config import settings
+from nats_client.nats import publish_event
+from ws.ws import manager
 
 
 async def fetch_rates(db: AsyncSession):
@@ -15,10 +15,22 @@ async def fetch_rates(db: AsyncSession):
         response = await client.get(settings.CBR_URL)
         data = response.json()
 
+
     rates = {
         "USD": data["Valute"]["USD"]["Value"],
         "EUR": data["Valute"]["EUR"]["Value"],
         "JPY": data["Valute"]["JPY"]["Value"],
+        "CNY": data["Valute"]["CNY"]["Value"],
+        "GBP": data["Valute"]["GBP"]["Value"],
+        "CHF": data["Valute"]["CHF"]["Value"],
+        "CAD": data["Valute"]["CAD"]["Value"],
+        "AUD": data["Valute"]["AUD"]["Value"],
+        "TRY": data["Valute"]["TRY"]["Value"],
+        "KRW": data["Valute"]["KRW"]["Value"],
+        "SGD": data["Valute"]["SGD"]["Value"], 
+        "INR": data["Valute"]["INR"]["Value"], 
+        "BRL": data["Valute"]["BRL"]["Value"], 
+        "ZAR": data["Valute"]["ZAR"]["Value"]
     }
 
     for code, value in rates.items():

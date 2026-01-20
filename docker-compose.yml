@@ -11,7 +11,9 @@ services:
       - nats-data:/data
 
   app:
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     depends_on:
@@ -21,7 +23,16 @@ services:
       - DATABASE_URL=sqlite+aiosqlite:///./currency.db
     volumes:
       - ./app:/app
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    command: >
+      sh -c "cd /app && 
+             uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+
+  nats-monitor:
+    image: natsio/nats-box:latest
+    depends_on:
+      - nats
+    command: ["sh", "-c", "sleep 5 && echo ' Monitoring NATS messages...' && nats sub '>'"]
+    tty: true
 
 volumes:
   nats-data:
